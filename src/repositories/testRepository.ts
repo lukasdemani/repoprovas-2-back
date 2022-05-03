@@ -35,7 +35,19 @@ async function getTestsByTeachers() {
   });
 }
 
+async function insert(name: string, pdfUrl: string, categoryId: number, teacherDisciplineId: number) {
+  return prisma.test.create({
+    data: {
+      name,
+      pdfUrl,
+      categoryId,
+      teacherDisciplineId
+    }
+  })
+}
+
 export default {
   getTestsByDiscipline,
   getTestsByTeachers,
+  insert,
 };

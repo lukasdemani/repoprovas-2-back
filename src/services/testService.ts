@@ -1,7 +1,16 @@
 import testRepository from "../repositories/testRepository.js";
+import teachersDisciplinesRepository from "../repositories/teachersDisciplines.js";
 
 interface Filter {
   groupBy: "disciplines" | "teachers";
+}
+
+export type AddTestData = {
+  name: string,
+  pdfUrl: string,
+  categoryId: number,
+  disciplineId: number,
+  teacherId: number
 }
 
 async function find(filter: Filter) {
@@ -12,6 +21,13 @@ async function find(filter: Filter) {
   }
 }
 
+async function newTest(testData: AddTestData) {
+  await teachersDisciplinesRepository.insert(testData.teacherId, testData.disciplineId);
+  const teacherDisciplineId = await teachersDisciplinesRepository.getTeacherDisciplineId(testData.teacherId, testData.disciplineId);
+  await testRepository.insert(testData.name, testData.pdfUrl, testData.categoryId, teacherDisciplineId[0].id);
+}
+
 export default {
   find,
+  newTest
 };
