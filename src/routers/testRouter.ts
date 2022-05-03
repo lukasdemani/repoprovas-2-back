@@ -8,5 +8,6 @@ const testRouter = Router();
 
 testRouter.get("/tests", ensureAuthenticatedMiddleware, testController.find);
 testRouter.post("/tests/add", validateSchemaMiddleware(testSchema), testController.newTest)
+testRouter.get("/tests/discipline", testController.searchByDiscipline)
 
 export default testRouter;

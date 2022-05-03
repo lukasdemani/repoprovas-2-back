@@ -1,5 +1,6 @@
 import testRepository from "../repositories/testRepository.js";
 import teachersDisciplinesRepository from "../repositories/teachersDisciplines.js";
+import disciplineRepository from "../repositories/disciplineRepository.js";
 
 interface Filter {
   groupBy: "disciplines" | "teachers";
@@ -27,7 +28,12 @@ async function newTest(testData: AddTestData) {
   await testRepository.insert(testData.name, testData.pdfUrl, testData.categoryId, teacherDisciplineId[0].id);
 }
 
+async function searchByDiscipline(textInput: string) {
+  return disciplineRepository.searchByDiscipline(textInput);
+}
+
 export default {
   find,
-  newTest
+  newTest,
+  searchByDiscipline
 };
