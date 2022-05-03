@@ -17,7 +17,7 @@ async function newTest(req: Request, res: Response) {
 
   await testService.newTest(testData);
 
-  res.send(201)
+  res.sendStatus(201)
 }
 
 async function searchByDiscipline(req: Request, res: Response){
